@@ -2,6 +2,7 @@ name: Build ghidra-lx-loader
 on:
   pull_request:
   push:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -10,18 +11,18 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'zulu'
+          java-version: "21"
+          distribution: "zulu"
       - name: Setup ghidra
         uses: er28-0652/setup-ghidra@master
         with:
-          version: '10.2'
+          version: "11.4.3"
       - name: Build Ghidra extension (using gradle)
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 'current'
-          arguments: 'buildExtension'
-      - uses: actions/upload-artifact@v3
+          gradle-version: "current"
+          arguments: "buildExtension"
+      - uses: actions/upload-artifact@v4
         with:
           name: ghidra-lx-loader
           path: |
